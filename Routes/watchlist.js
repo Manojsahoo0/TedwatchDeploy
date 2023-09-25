@@ -5,7 +5,7 @@ const authenticateJWT = require('../Middleware/auth.js')
 const router = express.Router()
 
 router.post("/",authenticateJWT,(req,res)=>{
-    Watchlist.find({movieId:req.body.movieId})
+    Watchlist.find({userId:req.body.userId,movieId:req.body.movieId})
     .exec()
     .then(watchlistItem=>{
         if(watchlistItem.length<1){
@@ -43,7 +43,7 @@ router.post("/",authenticateJWT,(req,res)=>{
 })
 
 router.delete("/",authenticateJWT,(req,res)=>{
-    Watchlist.deleteOne({movieId:req.body.movieId})
+    Watchlist.deleteOne({userId:req.body.userId,movieId:req.body.movieId})
             .exec()
             res.status(200).json({
                 message:"Removed from watchlist"
